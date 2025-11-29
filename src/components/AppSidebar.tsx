@@ -2,56 +2,47 @@ import { LayoutDashboard, Users, Settings, BarChart3, Zap } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import toorriiLogo from "@/assets/toorrii-logo.png";
-
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarFooter,
-  useSidebar,
-} from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarFooter, useSidebar } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
-
-const items = [
-  { title: "Overview", url: "/", icon: LayoutDashboard },
-  { title: "Manage Queues", url: "/manage", icon: Users },
-  { title: "Analytics", url: "/analytics", icon: BarChart3 },
-  { title: "Settings", url: "/settings", icon: Settings },
-];
-
+const items = [{
+  title: "Overview",
+  url: "/",
+  icon: LayoutDashboard
+}, {
+  title: "Manage Queues",
+  url: "/manage",
+  icon: Users
+}, {
+  title: "Analytics",
+  url: "/analytics",
+  icon: BarChart3
+}, {
+  title: "Settings",
+  url: "/settings",
+  icon: Settings
+}];
 export function AppSidebar() {
-  const { open } = useSidebar();
+  const {
+    open
+  } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
-
   const isActive = (path: string) => currentPath === path;
-
-  return (
-    <Sidebar
-      className={`${open ? "w-72" : "w-20"} transition-all duration-300 border-r border-border/50`}
-      collapsible="icon"
-    >
+  return <Sidebar className={`${open ? "w-72" : "w-20"} transition-all duration-300 border-r border-border/50`} collapsible="icon">
       <SidebarContent className="bg-card">
         {/* Logo Section */}
         <div className={`${open ? "p-6" : "p-4"} transition-all duration-300`}>
           <div className={`flex items-center ${open ? "gap-3" : "justify-center"}`}>
             <div className="relative">
               <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
-              <div className="relative bg-gradient-to-br from-primary to-primary-glow p-2.5 rounded-xl shadow-lg">
+              <div className="relative bg-gradient-to-br from-primary to-primary-glow p-1 rounded-xl shadow-lg">
                 <Zap className="h-6 w-6 text-primary-foreground" />
               </div>
             </div>
-            {open && (
-              <div className="flex flex-col animate-fade-in">
+            {open && <div className="flex flex-col animate-fade-in">
                 <h1 className="text-xl font-bold text-foreground tracking-tight">Toorrii</h1>
                 <span className="text-xs text-muted-foreground font-medium">Admin Portal</span>
-              </div>
-            )}
+              </div>}
           </div>
         </div>
 
@@ -59,47 +50,36 @@ export function AppSidebar() {
 
         {/* Navigation Section */}
         <SidebarGroup className="px-3 py-4">
-          {open && (
-            <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 mb-2">
+          {open && <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 mb-2">
               Main Menu
-            </SidebarGroupLabel>
-          )}
+            </SidebarGroupLabel>}
 
           <SidebarGroupContent>
             <SidebarMenu className="space-y-1">
-              {items.map((item) => {
-                const active = isActive(item.url);
-                return (
-                  <SidebarMenuItem key={item.title}>
+              {items.map(item => {
+              const active = isActive(item.url);
+              return <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <NavLink
-                        to={item.url}
-                        end
-                        className={`
+                      <NavLink to={item.url} end className={`
                           ${open ? "px-4 py-3" : "px-3 py-3 justify-center"}
                           rounded-xl transition-all duration-200
                           text-muted-foreground hover:text-foreground
                           hover:bg-muted/50
                           flex items-center gap-3
                           group relative
-                        `}
-                        activeClassName={`
+                        `} activeClassName={`
                           bg-gradient-to-r from-primary/10 to-primary/5
                           text-primary font-semibold
                           shadow-sm
                           border border-primary/20
-                        `}
-                      >
+                        `}>
                         <item.icon className={`h-5 w-5 transition-transform group-hover:scale-110 ${active ? "text-primary" : ""}`} />
                         {open && <span className="text-sm font-medium">{item.title}</span>}
-                        {active && open && (
-                          <div className="absolute right-3 w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
-                        )}
+                        {active && open && <div className="absolute right-3 w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />}
                       </NavLink>
                     </SidebarMenuButton>
-                  </SidebarMenuItem>
-                );
-              })}
+                  </SidebarMenuItem>;
+            })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -107,8 +87,7 @@ export function AppSidebar() {
 
       {/* Footer */}
       <SidebarFooter className="p-4 border-t border-border/50 bg-muted/30">
-        {open ? (
-          <div className="space-y-2 animate-fade-in">
+        {open ? <div className="space-y-2 animate-fade-in">
             <div className="flex items-center justify-between text-xs">
               <span className="text-muted-foreground font-medium">System Status</span>
               <div className="flex items-center gap-1.5">
@@ -119,13 +98,9 @@ export function AppSidebar() {
             <div className="text-[10px] text-muted-foreground/70">
               v2.4.1 • © 2024 Toorrii
             </div>
-          </div>
-        ) : (
-          <div className="flex justify-center">
+          </div> : <div className="flex justify-center">
             <div className="w-2 h-2 bg-success rounded-full animate-pulse" />
-          </div>
-        )}
+          </div>}
       </SidebarFooter>
-    </Sidebar>
-  );
+    </Sidebar>;
 }
